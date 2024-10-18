@@ -8,9 +8,6 @@ COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
 WORKDIR /app
 
-COPY wait-for-postgres.sh ./wait-for-postgres.sh
-RUN chmod +x ./wait-for-postgres.sh
-
 
 EXPOSE 8000
 
