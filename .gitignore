@@ -166,4 +166,4 @@ cython_debug/
 .venv
 venv/
 
-/home/babsdevsys/recommendation-system/app/src/ml-32m
+app/src/ml-32m/*
