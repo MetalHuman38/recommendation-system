@@ -8,6 +8,14 @@ __pycache__/
 *.pyd
 __pycache__/
 
+app/__pycache__
+app/*/__pycache__/
+app/**/*/__pycache__/
+app/*/*/**/__pycache__/
+app/*/*/*/**/__pycache__/
+app/*/*/*/*/**/__pycache__/
+app/.mypy_cache
+
 *.csv
 *.log
 *.out
