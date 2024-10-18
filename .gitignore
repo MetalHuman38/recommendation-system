@@ -176,6 +176,6 @@ cython_debug/
 
 
 .env
-.venv
+.venv/
 venv/
-ml-32m/
+.ml-32m/
