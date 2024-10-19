@@ -10,7 +10,12 @@ WORKDIR /app
 
 EXPOSE 8000
 
-ARG DEV=false
+ARG DEV=true
+
+RUN apk add --update --no-cache nodejs npm
+
+RUN npm install -g npm@latest
+
 RUN python -m venv /py && \
   /py/bin/pip install --upgrade pip && \
   apk add --update --no-cache postgresql-client && \
@@ -25,8 +30,7 @@ RUN python -m venv /py && \
   adduser \
   --disabled-password \
   --no-create-home \
-  django-user && \
-  chown -R django-user /app
+  django-user
 
 ENV PATH="/py/bin:$PATH"
 

@@ -176,3 +176,5 @@ app/src/ml-32m/links.csv
 *.log
 *.xlsx
 *.pkl
+
+local-cdn/

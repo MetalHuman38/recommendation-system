@@ -27,5 +27,6 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'),
          name='api-docs'),
     path("", include("recsys.urls")),
-    path("__reload__", include("django_browser_reload.urls")),
+    path('api/user/', include('user.urls')),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
