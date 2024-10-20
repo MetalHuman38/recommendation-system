@@ -22,6 +22,24 @@ class StreamRatingToDb:
         )
         return user
 
+    def check_rating_exists(self, user_id, movie_id):
+        """
+        Check if a rating already exists
+        in the database.
+        """
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT id
+                FROM core_ratings
+                WHERE user_id = %s
+                AND movie_id = %s
+                """,
+                [user_id, movie_id]
+            )
+            return cursor.fetchone()
+
     def stream_ratings_to_db(self, chunk_size=10000):
         """
         Stream ratings data directly

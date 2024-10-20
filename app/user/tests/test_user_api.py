@@ -139,7 +139,7 @@ class PublicUserApiTests(TestCase):
 
 class PrivateUserApiTests(TestCase):
     """
-    Test API requests that 
+    Test API requests that
     require authentication
     """
 
@@ -154,7 +154,7 @@ class PrivateUserApiTests(TestCase):
 
     def test_retrieve_profile_success(self):
         """
-        Test retrieving profile 
+        Test retrieving profile
         for logged in used
         """
 
@@ -167,7 +167,7 @@ class PrivateUserApiTests(TestCase):
 
     def test_post_me_not_allowed(self):
         """
-        Test that POST is not 
+        Test that POST is not
         allowed on the me url
         """
 
@@ -176,7 +176,7 @@ class PrivateUserApiTests(TestCase):
 
     def test_update_user_profile(self):
         """
-        Test updating the user 
+        Test updating the user
         profile for authenticated user
         """
 

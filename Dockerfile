@@ -13,7 +13,7 @@ EXPOSE 8000
 ARG DEV=true
 
 RUN apk add --update --no-cache nodejs npm
-
+# Upgrade npm to the latest version
 RUN npm install -g npm@latest
 
 RUN python -m venv /py && \
