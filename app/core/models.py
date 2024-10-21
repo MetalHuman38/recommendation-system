@@ -107,3 +107,59 @@ class Ratings(models.Model):
 
     def __str__(self):
         return f"{self.user} rated {self.movie} {self.rating}"
+
+
+class Tags(models.Model):
+    """
+    Tags model
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    tag = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        unique_together = ('user', 'movie')
+        verbose_name_plural = 'Tags'
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f"{self.user} tagged {self.movie} as {self.tag}"
+
+
+class Links(models.Model):
+    """
+    Links model
+    """
+
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    imdb_id = models.IntegerField(blank=True)
+    tmdb_id = models.FloatField(blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Links'
+
+    def __str__(self):
+        return f"{self.movie} - IMDB: {self.imdb_id}, TMDB: {self.tmdb_id}"
+
+
+class UserCollection(models.Model):
+    """
+    User movie Collection model.
+    (e.g. My Favorites, Watchlist, etc.)
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255)
+    movies = models.ManyToManyField(Movie)
+
+    class Meta:
+        verbose_name_plural = 'User Collections'
+
+    def __str__(self):
+        return self.name

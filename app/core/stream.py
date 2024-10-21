@@ -1,3 +1,9 @@
+"""
+This Module streams the ratings
+data directly into the PostgreSQL
+database using the COPY command.
+"""
+
 import csv
 import io
 from datetime import datetime

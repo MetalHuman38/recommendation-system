@@ -6,7 +6,7 @@ using bulk_create method.
 
 from datetime import datetime, timezone
 import pandas as pd
-from core.models import Movie, Ratings
+from core.models import Movie, Ratings, Tags, Links
 from django.contrib.auth import get_user_model
 from django.db import transaction
 
@@ -119,3 +119,63 @@ class MovieLensDataLoader:
         # Bulk insert the ratings
         Ratings.objects.bulk_create(rating_objects, batch_size=5000)
         print(f"{len(rating_objects)} ratings loaded into the database.")
+
+    @transaction.atomic
+    def load_tags(self, tags_df):
+        """
+        Insert tags data into the database.
+        """
+
+        # Preload Movies and Users
+        movie_map = {movie.movie_id: movie for movie in Movie.objects.all()}
+        user_map = {user.id: user for user in get_user_model().objects.all()}
+
+        # Filter out tags that already exist in the database
+        existing_tags = set(Tags.objects.values_list(
+          "user_id", "movie_id"))
+
+        tag_objects = []
+        for index, row in tags_df.iterrows():
+            # Ensure no duplicates are inserted
+            if (row["userId"], row["movieId"]) not in existing_tags:
+                # Convert timestamp to a Python datetime object
+                timestamp = datetime.fromtimestamp(
+                  row["timestamp"], timezone.utc
+                  ) if row["timestamp"] > 0 else None
+
+                tag = Tags(
+                    user=user_map.get(row["userId"]),
+                    movie=movie_map.get(row["movieId"]),
+                    tag=row["tag"],
+                    timestamp=timestamp,
+                )
+                tag_objects.append(tag)
+
+            if index % 10000 == 0:
+                print(f"Processed {index} tags...")
+
+        # Bulk insert the tags
+        Tags.objects.bulk_create(tag_objects, batch_size=5000)
+        print(f"{len(tag_objects)} tags loaded into the database.")
+
+    @transaction.atomic
+    def load_links(self, links_df):
+        """
+        Insert links data into the database.
+        """
+        # Filter out links that already exist in the database
+        existing_links = set(Links.objects.values_list("movie_id", flat=True))
+        links_df = links_df[~links_df["movieId"].isin(existing_links)]
+
+        link_objects = [
+            Links(
+                movie_id=row["movieId"],
+                imdb_id=row["imdbId"],
+                tmdb_id=row["tmdbId"]
+            )
+            for index, row in links_df.iterrows()
+        ]
+
+        # Bulk insert the links into the database
+        Links.objects.bulk_create(link_objects, batch_size=5000)
+        print(f"{len(link_objects)} links loaded into the database.")
