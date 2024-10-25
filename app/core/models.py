@@ -113,6 +113,12 @@ class Ratings(models.Model):
     def __str__(self):
         return f"{self.user} rated {self.movie} {self.rating}"
 
+    def get_user_rating(self):
+        """
+        Returns the rating value for this user and movie instance.
+        """
+        return self.rating
+
 
 class Tags(models.Model):
     """
@@ -134,6 +140,12 @@ class Tags(models.Model):
     def __str__(self):
         return f"{self.user} tagged {self.movie} as {self.tag}"
 
+    def get_user_tag(self):
+        """
+        Returns the tag value for this user and movie instance.
+        """
+        return self.tag
+
 
 class Links(models.Model):
     """
@@ -149,6 +161,22 @@ class Links(models.Model):
 
     def __str__(self):
         return f"{self.movie} - IMDB: {self.imdb_id}, TMDB: {self.tmdb_id}"
+
+    def get_imdb_id(self):
+        """
+        Returns the IMDB ID value
+        for this movie instance.
+        """
+
+        return self.imdb_id
+
+    def get_tmdb_id(self):
+        """
+        Returns the TMDB ID value
+        for this movie instance.
+        """
+
+        return self.tmdb_id
 
 
 class UserCollection(models.Model):
