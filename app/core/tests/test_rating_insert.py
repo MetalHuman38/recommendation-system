@@ -16,7 +16,8 @@ class RatingModelTest(TestCase):
         )
         movie = Movie.objects.create(
           movie_id=1,
-          title="Test Movie"
+          title="Test Movie",
+          user=user
         )
 
         ratings = [

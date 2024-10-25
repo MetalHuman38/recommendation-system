@@ -21,6 +21,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
@@ -28,5 +29,6 @@ urlpatterns = [
          name='api-docs'),
     path("", include("recsys.urls")),
     path('api/user/', include('user.urls')),
+    path('api/movies/', include('movie.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

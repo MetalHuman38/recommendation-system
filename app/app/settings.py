@@ -48,11 +48,15 @@ INSTALLED_APPS = [
     'theme',
     'recsys',
     'user',
+    'movie',
+    'links',
+    'ratings',
+    'tag',
 ]
 
 TAILWIND_APP_NAME = 'theme'
 
-EXTERNAL_APPS = ['127.0.0.1', 'localhost']
+EXTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 NPM_BIN_PATH = "/home/babsdevsys/.nvm/versions/node/v20.17.0/bin/npm"
 

@@ -70,11 +70,16 @@ class Movie(models.Model):
     movie_id = models.IntegerField(unique=True, primary_key=True)
     title = models.CharField(max_length=255)
     genres = models.CharField(max_length=255, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    imdb_id = models.BigIntegerField(blank=True, null=True)
+    tmdb_id = models.FloatField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Movies'
-        ordering = ['-created_at']
+        ordering = ['movie_id']
 
     def __str__(self):
         return self.title

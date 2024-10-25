@@ -55,3 +55,6 @@ class UserAdmin(BaseUserAdmin):
 
 # Register the User model with the customized UserAdmin class
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Movie)
+admin.site.register(models.Ratings)
+admin.site.register(models.Tags)

@@ -17,10 +17,16 @@ class ModelTests(TestCase):
         Test creating a new movie.
         """
 
+        user = get_user_model().objects.create_user(
+            email="other@example.com",
+            password="testpass"
+        )
+
         movie = Movie.objects.create(
               movie_id=1,
               title="Toy Story",
-              genres="Animation|Children's|Comedy"
+              genres="Animation|Children's|Comedy",
+              user=user
           )
 
         self.assertEqual(movie.movie_id, 1)
@@ -43,13 +49,15 @@ class ModelTests(TestCase):
         movie1 = Movie.objects.create(
             movie_id=1,
             title="Toy Story",
-            genres="Animation|Children's|Comedy"
+            genres="Animation|Children's|Comedy",
+            user=user
         )
 
         movie2 = Movie.objects.create(
             movie_id=2,
             title="Toy Story 2",
-            genres="Animation|Children's|Comedy"
+            genres="Animation|Children's|Comedy",
+            user=user
         )
 
         collection = UserCollection.objects.create(

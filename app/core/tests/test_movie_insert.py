@@ -4,6 +4,7 @@ This module Test Movie Insertion
 
 from django.test import TestCase
 from core.models import Movie
+from django.contrib.auth import get_user_model
 
 
 class MovieModelTest(TestCase):
@@ -16,11 +17,29 @@ class MovieModelTest(TestCase):
         Test bulk insert of movies into the Movie model.
         """
 
+        user = get_user_model().objects.create_user(
+              "test7@example.com",
+              "testpass"
+        )
+
         # Define the movie data to be inserted
         movie_data = [
-            Movie(movie_id=1, title="Test Movie 1", genres="Action|Adventure"),
-            Movie(movie_id=2, title="Test Movie 2", genres="Drama|Romance"),
-            Movie(movie_id=3, title="Test Movie 3", genres="Comedy|Drama"),
+            Movie(
+                  movie_id=1,
+                  title="Test Movie 1",
+                  genres="Action|Adventure",
+                  user=user),
+            Movie(
+                movie_id=2,
+                title="Test Movie 2",
+                genres="Drama|Romance",
+                user=user
+                ),
+            Movie(
+                movie_id=3,
+                title="Test Movie 3",
+                genres="Comedy|Drama",
+                user=user),
         ]
 
         # Perform bulk insert of movies

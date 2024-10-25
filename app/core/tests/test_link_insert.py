@@ -1,5 +1,6 @@
 from django.test import TestCase
 from core.models import Links, Movie
+from django.contrib.auth import get_user_model
 
 
 class LinksModelTest(TestCase):
@@ -12,18 +13,29 @@ class LinksModelTest(TestCase):
         Test bulk insert of links into the Links model.
         """
 
+        user = get_user_model().objects.create_user(
+            "other@cample.com",
+            "testpass"
+        )
+
         Movie.objects.create(
             movie_id=1,
             title="Test Movie",
-            genres="Action")
+            genres="Action",
+            user=user
+            )
         Movie.objects.create(
             movie_id=2,
             title="Test Movie 2",
-            genres="Comedy")
+            genres="Comedy",
+            user=user
+            )
         Movie.objects.create(
             movie_id=3,
             title="Test Movie 3",
-            genres="Drama")
+            genres="Drama",
+            user=user
+            )
 
         # Define the links data to be inserted
         link_data = [

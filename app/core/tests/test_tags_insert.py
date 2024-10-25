@@ -22,8 +22,18 @@ class TagModelTest(TestCase):
         )
 
         # Create dummy movies for ForeignKey relationships
-        movie1 = Movie.objects.create(movie_id=1, title="God Father")
-        movie2 = Movie.objects.create(movie_id=2, title="The Matrix")
+        movie1 = Movie.objects.create(
+            movie_id=1,
+            title="God Father",
+            genres="Action",
+            user=user1
+            )
+        movie2 = Movie.objects.create(
+            movie_id=2,
+            title="The Matrix",
+            genres="Action",
+            user=user2
+            )
 
         # Define the tag data to be inserted, using the correct fields
         tag_data = [
